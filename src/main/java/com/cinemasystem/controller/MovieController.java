@@ -28,13 +28,12 @@ public class MovieController {
     public ResponseEntity<MovieDTO> update(
             @PathVariable Long id,
             @RequestBody MovieDTO dto) {
-        MovieDTO updated = movieService.update(id, dto);
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(movieService.update(id, dto));
     }
 
     @PatchMapping("/{id}")
-    public MovieDTO partialUpdate(@PathVariable Long id, @RequestBody MovieDTO dto) {
-        return movieService.partialUpdate(id, dto);
+    public ResponseEntity<MovieDTO> partialUpdate(@PathVariable Long id, @RequestBody MovieDTO dto) {
+        return ResponseEntity.ok(movieService.partialUpdate(id, dto));
     }
 
     @DeleteMapping("/{id}")
