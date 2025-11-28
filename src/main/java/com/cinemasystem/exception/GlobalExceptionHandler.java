@@ -4,9 +4,13 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.ProblemDetail.forStatusAndDetail;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -26,8 +30,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InternalServerErrorException.class)
-    public ProblemDetail handleInternalError(InternalServerErrorException ex) {
+    public ProblemDetail handleInternal(InternalServerErrorException ex) {
         return buildProblem(ex.getMessage(), "server-error", "Server Error", INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleValidation(MethodArgumentNotValidException ex) {
+        ProblemDetail pd = buildProblem("Validation failed", "validation-error", "Validation Error", BAD_REQUEST);
+        Map<String, String> errors = new HashMap<>();
+
+        for (FieldError fe : ex.getBindingResult().getFieldErrors()) {
+            errors.put(fe.getField(), fe.getDefaultMessage());
+        }
+
+        pd.setProperty("errors", errors);
+        return pd;
     }
 
     @ExceptionHandler(Exception.class)

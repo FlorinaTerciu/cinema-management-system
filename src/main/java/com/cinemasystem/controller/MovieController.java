@@ -2,6 +2,7 @@ package com.cinemasystem.controller;
 
 import com.cinemasystem.dto.MovieDTO;
 import com.cinemasystem.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO dto) {
+    public ResponseEntity<MovieDTO> create(@Valid @RequestBody MovieDTO dto) {
         MovieDTO created = movieService.create(dto);
         return ResponseEntity
                 .created(URI.create("/api/movies/" + created.getId()))
@@ -27,7 +28,7 @@ public class MovieController {
     @PutMapping("/{id}")
     public ResponseEntity<MovieDTO> update(
             @PathVariable Long id,
-            @RequestBody MovieDTO dto) {
+            @Valid @RequestBody MovieDTO dto) {
         return ResponseEntity.ok(movieService.update(id, dto));
     }
 
