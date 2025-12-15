@@ -34,9 +34,8 @@ public class RoomService {
         Room existing = roomRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Room not found with id " + id));
 
-        Room updated = roomMapper.toEntity(dto)
-                .toBuilder()
-                .id(existing.getId())
+        Room updated = existing.toBuilder()
+                .name(dto.getName())
                 .build();
 
         Room saved = roomRepository.save(updated);

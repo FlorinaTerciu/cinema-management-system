@@ -4,6 +4,8 @@ import com.cinemasystem.dto.ShowtimeDTO;
 import com.cinemasystem.exception.BadRequestException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class ShowtimeValidator {
 
@@ -22,6 +24,9 @@ public class ShowtimeValidator {
     public void validateForPartial(ShowtimeDTO dto) {
         if (dto.getId() != null) {
             throw new BadRequestException("ID must not be provided for partial update");
+        }
+        if (dto.getStartTime() != null && !dto.getStartTime().isAfter(LocalDateTime.now())) {
+            throw new BadRequestException("Start time must be in the future");
         }
     }
 
