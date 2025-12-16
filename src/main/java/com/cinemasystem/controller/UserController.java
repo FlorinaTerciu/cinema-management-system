@@ -2,7 +2,6 @@ package com.cinemasystem.controller;
 
 import com.cinemasystem.dto.UserDTO;
 import com.cinemasystem.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +24,7 @@ public class UserController {
 
     @PutMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<UserDTO> updateCurrentProfile(@Valid @RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> updateCurrentProfile(@RequestBody UserDTO dto) {
         return ResponseEntity.ok(userService.updateCurrentProfile(dto));
     }
 

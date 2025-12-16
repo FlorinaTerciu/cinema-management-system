@@ -2,9 +2,6 @@ package com.cinemasystem.entity;
 
 import com.cinemasystem.entity.enums.SeatType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
