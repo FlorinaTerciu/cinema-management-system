@@ -34,7 +34,7 @@ All endpoints are documented via Swagger UI:
 
 #### Backend
 Java 21 <br>
-Spring Boot 3.x <br>
+Spring Boot 3 <br>
 Spring Web (REST) <br>
 Spring Data JPA (Hibernate) <br>
 Spring Security (OAuth2 Resource Server) <br>
